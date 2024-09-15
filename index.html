@@ -1,20 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Git Summary | Intermediate</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <h1>Deeper Look at Git</h1>
 
     <div class="container">
-        <h2>Changing History</h2>
-        
-    </div>
-    
+      <h2>Changing History</h2>
+      <ol>
+        <li>
+          Changing the last commit
+          <p>
+            Use <code>git commit --amend</code> <br />
+            Remember to only amend commits that have not been pushed anywhere!
+            The reason for this is that git commit --amend does not edit the
+            last commit, it replaces that commit with an entirely new one.
+          </p>
+        </li>
+        <li>
+          Changing multiple commits
+          <p>
+            This is where the beautiful command <code>git rebase</code> comes
+            into play!
+          </p>
+          <h3>Starting an Interactive Rebase</h3>
+          <ul>
+            <li>Initiate the Rebase:</li>
+            <p>To start an interactive rebase, use the following command:</p>
+            <code> git rebase -i HEAD~N </code>
+            <p>
+              Replace N with the number of commits you want to affect. For
+              example, if you want to modify the last 3 commits, use HEAD~3.
+            </p>
+            <li>
+              Understanding the Interactive Rebase Editor
+              <p>
+                When you run the command, Git will open your default text editor
+                with a list of commits, similar to this:
+              </p>
+              <code class="git">
+                pick abc123 Commit message 1 pick def456 Commit message 2 pick
+                ghi789 Commit message 3
+              </code>
+            </li>
+            <li>
+              Commands You Can Use
+              <p>
+                In the editor, you can replace the word pick with several
+                commands:
+              </p>
+              <ol>
+                <li><b>pick:</b>Use the commit as is.</li>
+                <li>
+                  <b>reword:</b>Use the commit but change its commit message.
+                </li>
+                <li>
+                  <b>edit:</b> Pause the rebase after this commit so you can
+                  modify it (e.g., change the content).
+                </li>
+                <li>
+                  <b>squash:</b> Combine this commit with the previous commit.
+                  You’ll be prompted to edit the commit message for the combined
+                  commit.
+                </li>
+                <li>
+                  <b>fixup:</b> Similar to squash, but it discards the commit
+                  message of the squashed commit.
+                </li>
+                <li><b>drop:</b>Remove the commit entirely.</li>
+              </ol>
+            </li>
+          </ul>
+        </li>
+        <li>
+          Splitting up a commit
+          <p>
+            <code>git reset</code> is a powerful command in Git that allows you
+            to undo changes by resetting the current HEAD to a specified state.
+            It can modify the staging area and working directory based on the
+            reset options you choose.
+          </p>
 
-</body>
+          <p>Types of Git reset</p>
+          <ol>
+            <h3>1. Soft Reset (<code>--soft</code>)</h3>
+            <p>
+              Moves the HEAD pointer to a specified commit but leaves your
+              working directory and staging area (index) intact.
+            </p>
+            <p>
+              This is useful if you want to uncommit changes but keep them
+              staged for a new commit.
+            </p>
+            <pre><code>git reset --soft &lt;commit&gt;</code></pre>
+            <p><strong>Example:</strong></p>
+            <pre><code>git reset --soft HEAD~1</code></pre>
+            <p>
+              This command undoes the last commit, keeping the changes staged.
+            </p>
+
+            <h3>2. Mixed Reset (default)</h3>
+            <p>
+              Moves the HEAD pointer to a specified commit and resets the
+              staging area to match, but leaves the working directory unchanged.
+            </p>
+            <p>
+              This is useful if you want to unstage changes while keeping them
+              in your working directory.
+            </p>
+            <pre><code>git reset &lt;commit&gt;</code></pre>
+            <p><strong>Example:</strong></p>
+            <pre><code>git reset HEAD~1</code></pre>
+            <p>
+              This command undoes the last commit and unstages the changes, but
+              the changes remain in your working directory.
+            </p>
+
+            <h3>3. Hard Reset (<code>--hard</code>)</h3>
+            <p>
+              Moves the HEAD pointer to a specified commit and resets both the
+              staging area and working directory to match that commit.
+            </p>
+            <p>
+              This is useful if you want to discard all changes since that
+              commit.
+            </p>
+            <pre><code>git reset --hard &lt;commit&gt;</code></pre>
+            <p><strong>Example:</strong></p>
+            <pre><code>git reset --hard HEAD~1</code></pre>
+            <p>
+              This command undoes the last commit and discards all changes in
+              the working directory and staging area.
+            </p>
+            
+    <h2>Use Cases for Git Reset</h2>
+    <ul>
+        <li><strong>Undoing Commits:</strong> If you mistakenly committed changes, you can use <code>git reset</code> to undo the commit while deciding what to do next.</li>
+        <li><strong>Unstaging Changes:</strong> If you accidentally staged changes you didn’t want to commit, a mixed reset will unstage them but keep them available for further edits.</li>
+        <li><strong>Discarding Changes:</strong> If you want to completely remove changes made since a specific commit, a hard reset is appropriate.</li>
+    </ul>
+          </ol>
+        </li>
+        <li>
+          Useful Links
+          <br />
+          <a href="https://git-scm.com/book/en/v2/Git-Branching-Rebasing"
+            >Rebasing covered by git-scm</a
+          >
+          <br />
+          <a href="https://git-scm.com/book/en/v2/Git-Tools-Reset-Demystified"
+            >Reset covered by git-scm
+          </a>
+        </li>
+      </ol>
+    </div>
+  </body>
 </html>

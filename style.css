@@ -1,11 +1,19 @@
 
 body{
-    text-align: center;
+   
     font-family: "Poppins", sans-serif;
 }
 
 .container{
-    margin: 2rem;
+    margin: 1rem;
     max-width: 500px;
     padding: 1rem ;
+}
+
+code{
+    background-color: wheat;
+}
+
+.git{
+    background-color: rgb(218, 235, 67); 
 }
