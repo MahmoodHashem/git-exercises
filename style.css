@@ -1,4 +1,11 @@
 
 body{
-    background-color: aquamarine;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+}
+
+.container{
+    margin: 2rem;
+    max-width: 500px;
+    padding: 1rem ;
 }
